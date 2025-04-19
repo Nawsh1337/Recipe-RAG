@@ -11,8 +11,6 @@ import pandas as pd
 # df.to_csv('recipes_data_cleaned.csv', index=False)#save the cleaned data
 
 
-
-
 df = pd.read_csv('recipes_data_cleaned.csv')
 
 df = df.head(100000)#dataset was too large
