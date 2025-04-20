@@ -1,9 +1,15 @@
 import relevant_docs_retrieval as rdr
 import ollama
 import yaml
+import os
+
 
 with open('config.yaml', 'r') as file:
     config = yaml.safe_load(file)
+
+OLLAMA_HOST = config.get('ollama_host')
+if OLLAMA_HOST:
+    os.environ["OLLAMA_HOST"] = OLLAMA_HOST
 
 LANGUAGE_MODEL = config['models']['language_model']
 

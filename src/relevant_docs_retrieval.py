@@ -1,6 +1,9 @@
 import yaml
 import ollama
 import chromadb
+import os
+
+
 
 def retrieve(query,n_docs=5):
     client = chromadb.PersistentClient(path="data/chroma_db")
@@ -8,7 +11,11 @@ def retrieve(query,n_docs=5):
 
     with open('config.yaml', 'r') as file:
         config = yaml.safe_load(file)
-        
+    
+    OLLAMA_HOST = config.get('ollama_host')
+    if OLLAMA_HOST:
+        os.environ["OLLAMA_HOST"] = OLLAMA_HOST
+
     EMBEDDING_MODEL = config['models']['embedding_model']
     query = "sweet dish with egg"
     query_embedding = ollama.embed(model=EMBEDDING_MODEL, input=query)['embeddings'][0]
