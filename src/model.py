@@ -1,9 +1,15 @@
 import relevant_docs_retrieval as rdr
 import ollama
 import yaml
+import os
+import requests
 
 with open('config.yaml', 'r') as file:
     config = yaml.safe_load(file)
+
+OLLAMA_HOST = config.get('ollama_host')
+if OLLAMA_HOST:
+    os.environ["OLLAMA_HOST"] = OLLAMA_HOST
 
 LANGUAGE_MODEL = config['models']['language_model']
 
@@ -20,10 +26,11 @@ def work(user_query):
     messages.append({'role': 'system', 'content': context_msg})
     messages.append({'role': 'user', 'content': user_query})
 
-    stream = ollama.chat(model=LANGUAGE_MODEL, messages=messages, stream=True)
+    stream = requests.post("https://de72-104-151-16-103.ngrok-free.app/chat", json={"query": user_query})
     full_response = ""
-    for chunk in stream:
-        content = chunk['message']['content']
+    # print(stream.json()["response"])
+    for chunk in stream.json()["response"]:
+        content = chunk
         full_response += content
 
     messages.append({'role': 'assistant', 'content': full_response})
