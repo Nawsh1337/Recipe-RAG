@@ -26,7 +26,7 @@ def work(user_query):
     messages.append({'role': 'system', 'content': context_msg})
     messages.append({'role': 'user', 'content': user_query})
 
-    stream = requests.post("https://de72-104-151-16-103.ngrok-free.app/chat", json={"query": user_query})
+    stream = requests.post("https://e2f6-104-151-16-103.ngrok-free.app/chat", json={"query": user_query})
     full_response = ""
     # print(stream.json()["response"])
     for chunk in stream.json()["response"]:
