@@ -1,7 +1,7 @@
 import ollama
 import pandas as pd
 import yaml#fancy
-import chromadb
+# import chromadb
 
 
 df = pd.read_csv('data/recipes_data_cleaned.csv')
