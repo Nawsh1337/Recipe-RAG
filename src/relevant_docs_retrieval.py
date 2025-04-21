@@ -20,7 +20,7 @@ def retrieve(query,n_docs=5):
     query = "sweet dish with egg"
     # query_embedding = ollama.embed(model=EMBEDDING_MODEL, input=query)['embeddings'][0]
 
-    res = requests.post("https://6b9f-104-151-16-103.ngrok-free.app/retrieve", json={"query": query, "n_docs": 3})
+    res = requests.post("https://3037-104-151-16-103.ngrok-free.app/retrieve", json={"query": query, "n_docs": 3})
     return res.json()["results"]
 
     # res = {}#top 5 relevant documents
