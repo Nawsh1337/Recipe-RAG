@@ -1,0 +1,4 @@
+vscode terminal: uvicorn server:app --port 8000
+
+
+ngrok: ngrok http 8000
