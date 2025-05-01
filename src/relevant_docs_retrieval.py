@@ -3,8 +3,8 @@ import ollama
 # import chromadb
 import os
 import requests
-import datetime
 import json
+from datetime import datetime  
 
 def retrieve(query, n_docs=5):
     # Read config
@@ -31,6 +31,7 @@ def retrieve(query, n_docs=5):
         json.dump(results, f, indent=4)
 
     return results
+
 
     # res = {}#top 5 relevant documents
     # for doc, meta in zip(results["documents"][0], results["metadatas"][0]):
