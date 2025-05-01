@@ -5,10 +5,8 @@ import os
 import requests
 
 
-def retrieve(query,n_docs=5):
-    # client = chromadb.PersistentClient(path="data/chroma_db")
-    # collection = client.get_collection(name="recipes")
-
+def retrieve(query, n_docs=5):
+    # Read config
     with open('config.yaml', 'r') as file:
         config = yaml.safe_load(file)
     
@@ -16,12 +14,22 @@ def retrieve(query,n_docs=5):
     if OLLAMA_HOST:
         os.environ["OLLAMA_HOST"] = OLLAMA_HOST
 
-    # EMBEDDING_MODEL = config['models']['embedding_model']
+    # Query example (you can replace this with your own dynamic query if needed)
     query = "sweet dish with egg"
-    # query_embedding = ollama.embed(model=EMBEDDING_MODEL, input=query)['embeddings'][0]
 
-    res = requests.post("https://ab6b-104-151-16-103.ngrok-free.app/retrieve", json={"query": query, "n_docs": 3})
-    return res.json()["results"]
+    # Send request to retrieve results
+    res = requests.post("https://ab6b-104-151-16-103.ngrok-free.app/retrieve", json={"query": query, "n_docs": n_docs})
+    results = res.json().get("results", [])
+
+    # Get current time for the filename
+    current_time = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+
+    # Save the results to a file named with the current time
+    filename = f"{current_time}.json"
+    with open(filename, 'w') as f:
+        json.dump(results, f, indent=4)
+
+    return results
 
     # res = {}#top 5 relevant documents
     # for doc, meta in zip(results["documents"][0], results["metadatas"][0]):
