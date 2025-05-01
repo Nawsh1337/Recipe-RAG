@@ -3,7 +3,8 @@ import ollama
 # import chromadb
 import os
 import requests
-
+import datetime
+import json
 
 def retrieve(query, n_docs=5):
     # Read config
